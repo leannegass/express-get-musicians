@@ -10,7 +10,7 @@ const { Musician } = require('./models/index')
 const app = require('./src/app');
 const seedMusician = require("./seedData");
 
-describe('/musicians endpoint', () => {
+describe('GET /musicians', () => {
     // Write your tests here
     test("Testing /musicians endpoint", async () => {
         // Sends request to `./musicians` endpoint
@@ -53,6 +53,27 @@ describe('/musicians endpoint', () => {
 
        
 })
+
+// test for post method in /musicians
+
+describe("POST /musicians", () => {
+    it("has statuscode of 200", async () => {
+        const response = await request(app).post("/musicians");
+        expect(response.statusCode).toBe(200);
+    })
+
+    test('Create a musician', async() => {
+        const musician = {
+            name: "edsheeran",
+            instrument : "guitar"
+        };
+        const count = await Musician.count();
+        await request(app).post('/musicians').send(musician)
+        const newCount = await Musician.count()
+        expect(newCount).toBe(count+1);   
+    });
+})
+//  supertest to test POST method 
 
 describe('/bands endpoint', () => {
     // Write your tests here
