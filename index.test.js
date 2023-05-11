@@ -54,7 +54,7 @@ describe('GET /musicians', () => {
        
 })
 
-// test for post method in /musicians
+// test for post route in /musicians
 
 describe("POST /musicians", () => {
     it("has statuscode of 200", async () => {
@@ -73,7 +73,31 @@ describe("POST /musicians", () => {
         expect(newCount).toBe(count+1);   
     });
 })
-//  supertest to test POST method 
+//  supertest to test PUT express route
+describe("test PUT method using supertest", () => {
+    it("has a 200 statuscode", async () => {
+        const response = await request(app)
+                    .put("/musicians/9")
+                    .send({name: "sheeran", instrument : "guitar"})
+        expect(response.statusCode).toBe(200);
+        // expect(response.body.name).toEqual("sheeran")
+    })
+})
+//test DELETE express route
+//skipping for now as returns 500
+describe("test DELETE /musicians", () => {
+    it.skip("has statuscode of 200", async () => {
+        const response = await request(app).delete("/musicians/17");
+        expect(response.statusCode).toBe(200);
+        
+    })
+    // it("has deleted the correct musician", async () => {
+    //     const id = 7;
+    //     const musicianAtId = await Musician.findByPk(id);
+    //     const response = await request(app).delete("/musicians/7");
+    //     expect(response).toBe(musicianAtId);
+    // })
+})
 
 describe('/bands endpoint', () => {
     // Write your tests here

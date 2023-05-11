@@ -28,7 +28,14 @@ app.get("/musicians/:id", async (request, response, next) => {
         // getting the number passed from the request example: musicians/1 will set id as 1 ..
         const index = request.params.id // assign the id value passed at the endpoint to the index variable
         const musicianAtIndex = await Musician.findByPk(index);
-        response.json(musicianAtIndex);
+        if(musicianAtIndex){
+            response.json(musicianAtIndex);
+
+        }
+        else{
+            response.sendStatus(404);
+        }
+        
         
     }
     catch(e){
